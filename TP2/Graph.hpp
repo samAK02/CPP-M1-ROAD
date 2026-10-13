@@ -24,8 +24,7 @@ void addArc(Graph& g, int n1, int n2, int cost);
 void printGraph(Graph& g);
 vector<int> DFS(Graph& g, int s);
 Graph readGraph(string filename);
-vector<float> dijkstra(Graph& g, int source);
-vector<int> chemin(const vector<int>& parent, int t);
+
 
 
 #endif
