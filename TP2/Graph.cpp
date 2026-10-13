@@ -112,36 +112,3 @@ Graph readGraph(string filename){
     }
 }
 
-vector<float> dijkstra(Graph& g, int source){
-    const float inf = std::numeric_limits<float>::max(); 
-    vector<float> dist(g.nbNodes, inf);
-    vector<float> parent(g.nbNodes, -1);
-
-    dist[source] = 0;
-    priority_queue<pair<float,int>, vector<pair<float,int>>, greater<pair<float,int>>> pq;
-    pq.push({0, source});
-    while(!pq.empty()){
-        float d = pq.top().first;   
-        int   u = pq.top().second; 
-        pq.pop();
-        if(d > dist[u]) continue;
-        for(int i : g.nodes[u]){
-            const Arc& a = g.arcs[i];
-            if(dist[u] + a.cost < dist[a.end]){
-                dist[a.end] = dist[u] +a.cost;
-                parent[a.end] = u;
-                pq.push({dist[a.end], a.end});
-            }
-        }
-
-    }
-    return dist;
-}
-
-vector<int> chemin(const vector<int>& parent, int t){
-    vector<int> p;
-    for(int v = t; v != -1; v = parent[v]) p.push_back(v);
-    reverse(p.begin(), p.end());    
-    return p;
-}
-
