@@ -187,7 +187,7 @@ int BellmanFord(Graph& g, int s, vector<float>& dist, vector<int>& pred){
     pred.assign(n, -1);
     dist[s] = 0;
 
-    for(int i = 0; i<n-1; i++){
+    for(int i = 0; i<n; i++){
         int dernier = -1;
         for(const Arc& a : g.arcs ){
             if(dist[a.start] == inf ) continue;
