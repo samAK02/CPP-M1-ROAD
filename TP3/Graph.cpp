@@ -8,7 +8,6 @@
 #include <algorithm>
 #include "Graph.hpp"
 
-// Binôme: AKRETCHE Ales Samy - LARRUE Joris
 
 using namespace std;
 
