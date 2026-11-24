@@ -1,4 +1,3 @@
-#ifndef GRAPH_HPP
 #define GRAPH_HPP
 
 #include<iostream>
@@ -11,6 +10,10 @@ using namespace std;
 struct Arc {
     int start, end;
     float cost;
+    int cap, flow;
+    int capRes, indx;
+    bool isInv;
+
 };
 
 struct Graph{
@@ -28,6 +31,15 @@ void DijkstraVec(Graph& g, int s, vector<float>& dist, vector<int>& pred);
 bool checkCondDijkstra(Graph& g);
 void DijkstraTas(Graph& g, int s, vector<float>& dist, vector<int>& pred);
 int BellmanFord(Graph& g, int s, vector<float>& dist, vector<int>& pred);
+void addNetworkArc(Graph& g, int start, int end, int cap);
+Graph readNetwork(string filename);
+void makeResidual(Graph& g);
+vector<int> reverseBfs(Graph& g, int t);
+int findAdmissibleArc(Graph& g, vector<int>& dist, int i);
+int relabel(Graph& g, vector<int>& dist, int i);
+int computeDelta(Graph& g, int s, int t, vector<int>& pred);
+void augmentFlow(Graph& g, int s, int t, vector<int>& pred, int delta);
+int EdmondsKarp(Graph& g,int s, int t);
+bool checkflow(Graph& g, int s, int t, int x);
 
 
-#endif
