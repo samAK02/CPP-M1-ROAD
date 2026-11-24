@@ -1,6 +1,6 @@
 #define GRAPH_HPP
 
-// Binôme: AKRETCHE Ales Samy - LARRUE Joris
+
 #include<iostream>
 #include<vector>
 #include<fstream>
