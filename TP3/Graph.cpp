@@ -439,11 +439,11 @@ int EdmondsKarp(Graph& g,int s, int t){
         int j = findAdmissibleArc(g, dist, i);
         if(j != -1){
             int v = g.arcs[i].end;
-            pred[v] = i;
+            pred[v] = j;
             i = v;
             if( i == t){
                 int delta = computeDelta(g, s, t, pred);
-                augmenteFlow(g,s,t,pred, delta);
+                augmentFlow(g, s, t, pred, delta);
                 x+=delta;
                 i =s;
             }
@@ -460,11 +460,45 @@ int EdmondsKarp(Graph& g,int s, int t){
 bool checkflow(Graph& g, int s, int t, int x){
 
     int n = g.nbNodes;
-    for(int i = 0; i<n; i++){
-        Arc& a = g.arcs[i];
-        if(a.flow < 0){
-            
+    int m = g.arcs.size();
+
+    for(int i = 0; i<m; i++){
+        const Arc& a = g.arcs[i];
+        if(a.flow < 0 || a.flow > a.cap){
+            return false;
+        }
+        if(a.indx >= 0 && a.indx < m){
+            if(a.flow > 0 && g.arcs[a.indx].flow > 0){
+                return false;
+            } 
         }
     }
 
+    for( int v =0; v<n; v++){
+        int entrant = 0, sortant = 0;
+        for(int i = 0; i<m; i++){
+            const Arc& a = g.arcs[i];
+            if(a.end == v) {
+                entrant += a.flow; 
+            }
+            if(a.start == v){
+                sortant += a.flow;
+            }
+        }
+
+
+        if (v == s){
+            if (sortant - entrant != x) return false;
+        } else if (v == t){
+            if (entrant - sortant != x) return false;
+        } else {
+            if (entrant != sortant) return false;
+        }
+        return true;
+    }
 }
+
+bool getMinimumCut(Graph& g, int s, int t, vector<int>& cut){
+    
+}
+
